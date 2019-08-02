@@ -1,0 +1,44 @@
+{include file="Public/header"}
+<table class="layui-table">
+  <colgroup>
+    <col width="150">
+    <col width="200">
+    <col>
+  </colgroup>
+  <thead>
+    <tr>
+      <th>订单编号</th>
+      <th>订单号</th>
+      <th>总价</th>
+      <th>下单用户</th>
+      <th>订单状态</th>
+      <th>下单时间</th>
+      <th>操作</th>
+    </tr> 
+  </thead>
+  <tbody>
+    {volist name="list" id="vo"}
+    <tr>
+      <td>{$vo.id}</td>
+      <td>{$vo.order_num}</td>
+      <td>￥{$vo.sumtotal}</td>
+      <td>{$vo.username}</td>
+      <td>
+        {switch name="vo.status"}
+            {case value="1"}<font style="color: #ffb800">未支付</font>{/case}
+            {case value="2"}<font style="color: #ff5722">待发货</font>{/case}
+            {case value="2"}代收货{/case}
+            {case value="2"}待评价{/case}
+            {case value="2"}交易完成{/case}
+        {/switch}
+      </td>
+      <td>{$vo.time|date='Y-m-d H:i:s',###}</td>
+      <td><a href="{:url('update',['id'=>$vo.id])}" class="layui-btn">查看</a>
+        <a href="javascript:void(0)" class="layui-btn layui-btn-danger del" url="{:url('luo_del',['id'=>$vo.id])}">删除</a>
+        </td>
+    </tr>
+    {/volist}
+  </tbody>
+</table>
+{$list->render()}
+{include file="Public/footer"}

@@ -1,0 +1,134 @@
+{include file="Public/header"}
+<form class="layui-form" action="" method="post" enctype="multipart/form-data">
+<input type="hidden" id="img" name="img" value="">
+<input type="hidden" id="thumb" name="thumb" value="">
+<input type="hidden" id="water" name="water" value="">
+  <div class="layui-form-item">
+      <label class="layui-form-label">名称</label>
+      <div class="layui-input-inline">
+        <input name="name" class="layui-input" type="text" required="required">
+      </div>
+  </div>
+ 
+  <div class="layui-form-item">
+    <label class="layui-form-label">类别</label>
+    <div class="layui-input-inline">
+      <select name="category">
+        <option  value="">请选择</option>
+        {volist name="cate" id="vo"}
+        <option value="{$vo.id}" >{$vo.name}</option>
+        {/volist}
+      </select>
+    </div>
+    
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">价格</label>
+      <div class="layui-input-inline">
+        <input name="price" class="layui-input" type="text" required="required">
+      </div>
+    </div>
+    <div class="layui-inline">
+      <label class="layui-form-label">库存</label>
+      <div class="layui-input-inline">
+        <input name="count" class="layui-input" type="number" required="required">
+      </div>
+    </div>
+  </div>
+  <div class="layui-form-item">
+      <label class="layui-form-label">图片</label>
+      <div class="layui-upload">
+      <button type="button" class="layui-btn" id="upimg">多图片上传</button> 
+      <blockquote class="layui-elem-quote layui-quote-nm" style="margin-left: 80px;margin-top: 20px;">
+        预览图：
+      <div style="margin-left: 30px" class="layui-upload-list" id="demo2"></div>
+      </blockquote>
+      </div>
+  </div>
+  
+  
+  <!-- <div class="layui-form-item">
+    <label class="layui-form-label">单选框</label>
+    <div class="layui-input-block">
+      <input name="sex" title="男" type="radio" checked="" value="男">
+      <input name="sex" title="女" type="radio" value="女">
+      <input name="sex" title="禁用" disabled="" type="radio" value="禁">
+    </div>
+  </div> -->
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">简介</label>
+    <div class="layui-input-block">
+      <textarea name="des" class="layui-textarea" placeholder="请输入内容"></textarea>
+    </div>
+  </div>
+   <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">特点</label>
+    <div class="layui-input-block">
+      <textarea name="content" class="layui-textarea" placeholder="请输入内容"></textarea>
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-filter="demo1" lay-submit="">立即提交</button>
+      <button class="layui-btn layui-btn-primary" type="reset">重置</button>
+    </div>
+  </div>
+</form>
+ 
+
+<script>
+//Demo
+layui.use('form', function(){
+   var form = layui.form;
+  
+  // //监听提交
+  // form.on('submit(formDemo)', function(data){
+  //   layer.msg(JSON.stringify(data.field));
+  //   return false;
+  // });
+});
+
+// layui.use('upload',function(){
+//   var upload=layui.upload;
+//   var uploadInst=upload.render({
+//     elem:'#upimg'
+//     ,url:'{:url("ajax")}'
+//     ,done:function(res){
+//       $('#img').attr('value',res.info);
+//     }
+//     ,error:function(msg){
+//       //请求异常调用
+//     }
+//   });
+// });
+// 
+ layui.use('upload', function(){
+  var upload=layui.upload;
+//   var uploadInst=upload.render({
+    upload.render({
+    elem: '#upimg'
+    ,url: '{:url("ajax")}'
+    ,multiple: true
+    ,before: function(obj){
+      //预读本地文件示例，不支持ie8
+      obj.preview(function(index, file, result){
+        $('#demo2').append('<img style="width:70px;height:70px;" src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
+      });
+    }
+    ,done: function(res){
+      var img=$('#img').attr('value');
+      img+=img!=''?'|'+res['info'][0]:res['info'][0];
+      $('#img').attr('value',img);
+      var thumb=$('#thumb').attr('value');
+      thumb+=thumb!=''?'|'+res['info'][1]:res['info'][1];
+      $('#thumb').attr('value',thumb);
+      var water=$('#water').attr('value');
+      water+=water!=''?'|'+res['info'][2]:res['info'][2];
+      $('#water').attr('value',water);
+    }
+  });
+});
+</script>
+{include file="Public/footer"}

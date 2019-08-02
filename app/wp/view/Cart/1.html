@@ -1,0 +1,142 @@
+{include file="Public/header"}
+    <link rel="stylesheet" type="text/css" href="css/guessYouLike.css">
+    <link rel="stylesheet" type="text/css" href="css/shop_cart.css">
+    <link rel="stylesheet" type="text/css" href="css/confirm_order.css">
+    <link rel="stylesheet" type="text/css" href="css/table.css">
+
+    <script src="js/loadShopData.js"></script>
+    <script src="js/confirm_order.js"></script>
+    <script src="js/guess.js"></script>
+
+    <div class="middle">
+        <div class="container">
+            <div class="head">
+                <div class="title fl">
+                    订单页
+                </div>
+                <div class="head-bar fr">
+                    <ul>
+                        <li class="on first">
+                            <div class="box">
+                                <div class="bar"></div>
+                                <div class="radio"><span>1</span></div>
+                            </div>
+                            <p>我的购物车</p>
+                        </li>
+                        <li class="on active ">
+                            <div class="box">
+                                <div class="bar"></div>
+                                <div class="radio"><span>2</span></div>
+                            </div>
+                            <p>确认订单</p>
+                        </li>
+                        <li>
+                            <div class="box">
+                                <div class="bar"></div>
+                                <div class="radio"><span>3</span></div>
+                            </div>
+                            <p>确认地址</p>
+                        </li>
+                        <li class="last">
+                            <div class="box">
+                                <div class="bar"></div>
+                                <div class="radio"><span>4</span></div>
+                            </div>
+                            <p>提交订单</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>商品</th>
+                            <th>价格（元）</th>
+                            <th>数量</th>
+                            <th>小计（元）</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {volist name="cart_list" id="vo"}
+                        <tr>
+                            <td class="goods">
+                                
+                                <a href="{:url('Cate/details',['id'=>$vo.id])}" class="fl">
+                                    <img src="__ROOT__/Uploads/{$vo.img}" width="120" height="100">
+                                </a>
+                                    <h3>
+                                        <a class="proName" href="{:url('Cate/details',['id'=>$vo.id])}">{$vo.name}</a>
+                                    </h3>
+                                        <dl>
+                                            <dd>40cm</dd>
+                                            <dd>白色</dd>
+                                        </dl>
+                                    </td>
+                                    <td class="price">￥{$vo.price}</td>
+                                    <td>
+                                        <div class="num">
+                                            {$vo.num}
+                                        </div>
+                                    </td>
+                                    <td class="subtotal">￥{$vo.total}</td>
+                                    
+                                </tr>
+                        {/volist}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2">
+                                <a href="{:url('Index/index')}">返回继续购物</a>
+                            </th>
+                            <th colspan="3">
+                                <form action="{:url('Address/index')}" style="width: 324px;" method="post">
+                                    
+                                <span>共计 <em class="totalCount">{$Think.session.num}</em> 件商品</span>
+                                <span>总价：<em class="totalPrice">{$Think.session.sumtotal}</em></span>
+                                <button class="btn" id="confirmOrder" type="">确认订单</button>
+                                </form>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="guessYouLike">
+                <h3>猜你喜欢</h3>
+                <div class="division"></div>
+                <ul class="clear">
+                    <li>
+                        <a href="pro_details.html"><img src="images/shop_list/product2.jpg" alt=""></a>
+                        <p><a href="pro_details.html">京东时尚最新品手镯 翡翠绿穿戴舒服手镯</a></p>
+                        <span><i>￥</i>666</span>
+                        <button type="button">加入购物车</button>
+                    </li>
+                    <li>
+                        <a href="pro_details.html"><img src="images/shop_list/product2.jpg" alt=""></a>
+                        <p><a href="pro_details.html">京东时尚最新品手镯 翡翠绿穿戴舒服手镯</a></p>
+                        <span><i>￥</i>666</span>
+                        <button type="button">加入购物车</button>
+                    </li>
+                    <li>
+                        <a href="pro_details.html"><img src="images/shop_list/product2.jpg" alt=""></a>
+                        <p><a href="pro_details.html">京东时尚最新品手镯 翡翠绿穿戴舒服手镯</a></p>
+                        <span><i>￥</i>666</span>
+                        <button type="button">加入购物车</button>
+                    </li>
+                    <li>
+                        <a href="pro_details.html"><img src="images/shop_list/product2.jpg" alt=""></a>
+                        <p><a href="pro_details.html">京东时尚最新品手镯 翡翠绿穿戴舒服手镯</a></p>
+                        <span><i>￥</i>666</span>
+                        <button type="button">加入购物车</button>
+                    </li>
+                    <li>
+                        <a href="pro_details.html"><img src="images/shop_list/product2.jpg" alt=""></a>
+                        <p><a href="pro_details.html">京东时尚最新品手镯 翡翠绿穿戴舒服手镯</a></p>
+                        <span><i>￥</i>666</span>
+                        <button type="button">加入购物车</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{include file="Public/footer"}

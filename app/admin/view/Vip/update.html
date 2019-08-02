@@ -1,0 +1,139 @@
+{include file="Public/header"}
+<form class="layui-form" action="" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="id" value="{$find.id}">
+  <table class="layui-table">
+    <colgroup>
+      <col width="50">
+      <col width="100">
+    </colgroup>
+    <tr>
+      <th>id</th>
+      <td>{$find.id}</td>
+    </tr>
+    <tr>
+      <th>用户名</th>
+      <td>{$find.username}</td>
+    </tr>
+    <tr>
+      <th>电话</th>
+      <td><input name="tel" id="tel" class="layui-input" type="text" placeholder="请输入手机号码" required="required" value="{$find.tel}"></td>
+    </tr>
+    <tr>
+      <th>邮箱</th>
+      <td><input name="email" id="email" class="layui-input" type="text" placeholder="请输入邮箱" required="required" value="{$find.email}"></td>
+    </tr>
+     <tr>
+      <th>密码</th>
+      <td><input name="pwd" id="pwd" class="layui-input" placeholder="无需修改请留空" type="password" ></td>
+    </tr>
+    
+  </table>
+  
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-filter="demo1" lay-submit=""  id="btn">立即提交</button>
+      <button class="layui-btn layui-btn-primary" type="reset">重置</button>
+    </div>
+  </div>
+</form>
+ 
+
+<script>
+//Demo
+layui.use('form', function(){
+   var form = layui.form;
+  // //监听提交
+  // form.on('submit(formDemo)', function(data){
+  //   layer.msg(JSON.stringify(data.field));
+  //   return false;
+  // });
+});
+
+    var t=0,p=0,e=0;
+    $(function () {
+    
+      //手机验证
+      $('#tel').blur(function(){
+          check_tel();
+          check_form();
+      })
+      //邮箱验证
+      $('#email').blur(function(){
+          check_email();
+          check_form();
+      })
+      //密码验证
+      $('#pwd').blur(function(){
+          check_password();
+          check_form();
+      })
+      // //重复密码验证
+      // $('#cpwd').bind('blur ',function(){
+      //     check_cpwd();
+      //     check_form();
+      // })
+      
+
+  })
+    //手机验证
+      function check_tel(){
+          var tel=$('#tel').val();
+          var reg=/^1[3|4|5|7|8|9][0-9]{9}$/;
+          if(!reg.test(tel)){
+              t=0;
+              layer.tips('请输入正确手机号码','#tel',{tips:[3,'#3595cc'],anim:4});
+            return false;
+          }else {
+            t=1;
+          }
+
+      }
+    
+    //密码验证
+    function check_password(){
+        var pwd=$('#pwd').val();
+        var reg=/^\w{5,12}$/;
+        if(!reg.test(pwd)){
+            p=0;
+            layer.tips('请输入5-12位英文字母或数字下划线的密码','#pwd',{tips:[3,'#3595cc'],anim:4});
+            return false;
+        }else {
+            p=1;
+        }
+    }
+    // //重复密码验证
+    // function check_cpwd(){
+    //     var pwd=$('#pwd').val();
+    //     var cpwd=$('#cpwd').val();
+
+    //     if(pwd!=cpwd){
+    //         c=0;
+    //         layer.tips('密码不一致','#cpwd',{tips:[3,'#3595cc'],anim:4});
+    //         return false;
+    //     }else {
+    //         c=1;
+    //     }
+    // }
+    //邮箱验证
+      function check_email(){
+          var email=$('#email').val();
+          var reg=/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+          if(!reg.test(email)){
+              e=0;
+             layer.tips('请输入正确的邮箱','#email',{tips:[3,'#3595cc'],anim:4});
+             return false;
+          }else {
+              e=1;
+          }
+
+      }
+    function check_form(){
+      console.log(t,p,e);
+        if(t==1&&e==1||p==1){
+           $('#btn').attr('disabled',false);
+        }else {
+            $('#btn').attr('disabled',true);
+        }
+    }
+</script>
+{include file="Public/footer"}

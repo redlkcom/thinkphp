@@ -1,0 +1,322 @@
+{include file="Public/header"}
+<link rel="stylesheet" type="text/css" href="css/index.css">
+<script src="js/index.js"></script>
+        <div class="banner">
+            <div class="carousel">
+                <ul>
+                    {volist name="ban_list" id="vo"}
+                    <li>
+                        <a href="{:url('Index/index')}"><img style="width: 1920px;height: 550px;" src="__ROOT__/Uploads/{$vo.img}" alt=""></a>
+                    </li>
+                    {/volist}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="middle">
+        <div class="container">
+            <div class="breadCrumb">
+                <div class="title">
+                    <ul class="clear">
+                        <li><span>新品推荐</span></li>
+                        <li class="on"><span>热卖爆款</span></li>
+                        <li><span>限时抢购</span></li>
+                    </ul>
+                </div>
+                <div class="content">
+                    <div>
+                        <ul class="clear">
+                            {volist name="list_copy_r.data" id="vo"}
+                            <li>
+                                <div class="pic">
+                                    <a href="{:url('Cate/details',['id'=>$vo.id])}"><img src="__ROOT__/Uploads/{$vo.img.0}" style="width:238px;height: 175px;" alt=""></a>
+                                </div>
+                                <h2><a href="{:url('Cate/details',['id'=>$vo.id])}">{$vo.name}</a></h2>
+                                <div class="price"><span><b>￥</b>{$vo.price}</span><span><b>￥</b>{$vo.price+100}</span></div>
+                                <div class="btn"><a href="{:url('Cate/details',['id'=>$vo.id])}">查看详情 》</a></div>
+                            </li>
+                            {/volist}
+                        </ul>
+                    </div>
+                    <div class="on">
+                        <ul class="clear">
+                            {volist name="list_copy_x.data" id="vo"}
+                            <li>
+                                <div class="pic">
+                                    <a href="{:url('Cate/details',['id'=>$vo.id])}"><img src="__ROOT__/Uploads/{$vo.img.0}" style="width:238px;height: 175px;" alt=""></a>
+                                </div>
+                                <h2><a href="{:url('Cate/details',['id'=>$vo.id])}">{$vo.name}</a></h2>
+                                <div class="price"><span><b>￥</b>{$vo.price}</span><span><b>￥</b>{$vo.price+100}</span></div>
+                                <div class="btn"><a href="{:url('Cate/details',['id'=>$vo.id])}">查看详情 》</a></div>
+                            </li>
+                            {/volist}
+                        </ul>
+                    </div>
+                    <div class="">
+                        <ul class="clear">
+                            {volist name="list_copy_q.data" id="vo"}
+                            <li>
+                                <div class="pic">
+                                    <a href="{:url('Cate/details',['id'=>$vo.id])}"><img src="__ROOT__/Uploads/{$vo.img.0}" style="width:238px;height: 175px;" alt=""></a>
+                                </div>
+                                <h2><a href="{:url('Cate/details',['id'=>$vo.id])}">{$vo.name}</a></h2>
+                                <div class="price"><span><b>￥</b>{$vo.price}</span><span><b>￥</b>{$vo.price+100}</span></div>
+                                <div class="btn"><a href="{:url('Cate/details',['id'=>$vo.id])}">查看详情 》</a></div>
+                            </li>
+                            {/volist}
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="show">
+                <div>
+                    <div class="title">
+                        <h2>家电<img src="images/index/ring.jpg" alt=""></h2>
+                        <div></div>
+                    </div>
+                    <div class="content">
+                        <div class="left">
+                            <div class="big-info">
+                                <h1><a href="{:url('Cate/details',['id'=>$jiadian.0.id])}">{$jiadian.0.cate_name}</a></h1>
+                                <p>{$jiadian.0.name}￥{$jiadian.0.price}</p>
+                            </div>
+                           <!--  <ul class="big-list">
+                                <li>铂金戒指</li>
+                                <li>情侣对戒</li>
+                                <li>个人定制</li>
+                                <li>特大钻戒</li>
+                                <li>个人定制</li>
+                                <li>特大钻戒</li>
+                            </ul> -->
+                            <a href="{:url('Cate/details',['id'=>$jiadian.0.id])}"><img src="__ROOT__/Uploads/{$jiadian.0.img.0}" width="300" height="511" alt=""></a>
+                        </div>
+                        <div class="right">
+                            <ol class="shop-list">
+                                <li>
+                                    <a href="{:url('Cate/details',['id'=>$jiadian.1.id])}"><img src="__ROOT__/Uploads/{$jiadian.1.img.0}" width="148" height="108" alt=""></a>
+                                    <h2><a href="{:url('Cate/details',['id'=>$jiadian.1.id])}">{$jiadian.1.name}</a></h2>
+                                    <p>￥{$jiadian.1.price} <del>￥{$jiadian.1.price+100}</del></p>
+                                </li>
+                                <li>
+                                    <div class="icon"><img src="images/index/icon1.png" alt=""></div>
+                                    <div class="carousel">
+                                        <ul>
+                                            {volist name="jiadian" id="vo"}
+                                            {between name="i" value="3,4"}
+                                            <li>
+                                                <a href="{:url('Cate/details',['id'=>$vo.id])}"><img src="__ROOT__/Uploads/{$vo.img.0}" width="448" height="256" alt=""></a>
+                                            </li>
+                                            {/between}
+                                            {/volist}
+                                        </ul>
+                                    </div>
+                                    <div class="carousel-icon">
+                                        <ul>
+                                            <li class="on"></li>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                {volist name="jiadian" id="vo"}
+                                {between name="i" value="5,19"}
+                                <li>
+                                    <a href="{:url('Cate/details',['id'=>$vo.id])}"><img src="__ROOT__/Uploads/{$vo.img.0}" width="126" height="123" alt=""></a>
+                                    <h2><a href="{:url('Cate/details',['id'=>$vo.id])}">{$vo.name}</a></h2>
+                                    <p>￥{$vo.price}<del>￥{$vo.price+100}</del></p>
+                                </li>
+                                {/between}
+                                {/volist}
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="title">
+                        <h2>手机<img src="images/index/ring.jpg" alt=""></h2>
+                        <div></div>
+                    </div>
+                    <div class="content">
+                        <div class="left">
+                            <div class="big-info">
+                                <h1><a href="{:url('Cate/details',['id'=>$shouji.0.id])}">{$shouji.0.cate_name}</a></h1>
+                                <p>{$shouji.0.name}￥{$shouji.0.price}</p>
+                            </div>
+                            <!-- <ul class="big-list">
+                                <li>铂金戒指</li>
+                                <li>情侣对戒</li>
+                                <li>个人定制</li>
+                                <li>特大钻戒</li>
+                                <li>个人定制</li>
+                                <li>特大钻戒</li>
+                            </ul> -->
+                            <a href="{:url('Cate/details',['id'=>$shouji.0.id])}"><img src="__ROOT__/Uploads/{$shouji.0.img.0}" width="300" height="511" alt=""></a>
+                        </div>
+                        <div class="right">
+                            <ol class="shop-list">
+                                <li>
+                                    <a href="{:url('Cate/details',['id'=>$shouji.1.id])}"><img src="__ROOT__/Uploads/{$shouji.1.img.0}" width="148" height="108" alt=""></a>
+                                    <h2><a href="{:url('Cate/details',['id'=>$shouji.1.id])}">{$shouji.1.name}</a></h2>
+                                    <p>￥{$shouji.1.price} <del>￥{$shouji.1.price+100}</del></p>
+                                </li>
+                                <li>
+                                    <div class="icon"><img src="images/index/icon1.png" alt=""></div>
+                                    <div class="carousel">
+                                        <ul>
+                                            {volist name="shouji" id="vo"}
+                                            {between name="i" value="3,4"}
+                                            <li>
+                                                <a href="{:url('Cate/details',['id'=>$vo.id])}"><img src="__ROOT__/Uploads/{$vo.img.0}" width="448" height="256" alt=""></a>
+                                            </li>
+                                            {/between}
+                                            {/volist}
+                                        </ul>
+                                    </div>
+                                    <div class="carousel-icon">
+                                        <ul>
+                                            <li class="on"></li>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                {volist name="shouji" id="vo"}
+                                {between name="i" value="5,9"}
+                                <li>
+                                    <a href="{:url('Cate/details',['id'=>$vo.id])}"><img src="__ROOT__/Uploads/{$vo.img.0}" width="126" height="123" alt=""></a>
+                                    <h2><a href="{:url('Cate/details',['id'=>$vo.id])}">{$vo.name}</a></h2>
+                                    <p>￥{$vo.price}<del>￥{$vo.price+100}</del></p>
+                                </li>
+                                {/between}
+                                {/volist}
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                    <div class="title">
+                        <h2>家电<img src="images/index/ring.jpg" alt=""></h2>
+                        <div></div>
+                    </div>
+                    <div class="content">
+                        <div class="left">
+                            <div class="big-info">
+                                <h1><a href="{:url('Cate/details',['id'=>$jiadian.0.id])}">{$jiadian.0.cate_name}</a></h1>
+                                <p>{$jiadian.0.name}￥{$jiadian.0.price}</p>
+                            </div>
+                           <!--  <ul class="big-list">
+                                <li>铂金戒指</li>
+                                <li>情侣对戒</li>
+                                <li>个人定制</li>
+                                <li>特大钻戒</li>
+                                <li>个人定制</li>
+                                <li>特大钻戒</li>
+                            </ul> -->
+                            <a href="{:url('Cate/details',['id'=>$jiadian.0.id])}"><img src="__ROOT__/Uploads/{$jiadian.0.img.0}" width="300" height="511" alt=""></a>
+                        </div>
+                        <div class="right">
+                            <ol class="shop-list">
+                                <li>
+                                    <a href="{:url('Cate/details',['id'=>$jiadian.1.id])}"><img src="__ROOT__/Uploads/{$jiadian.1.img.0}" width="148" height="108" alt=""></a>
+                                    <h2><a href="{:url('Cate/details',['id'=>$jiadian.1.id])}">{$jiadian.1.name}</a></h2>
+                                    <p>￥{$jiadian.1.price} <del>￥{$jiadian.1.price+100}</del></p>
+                                </li>
+                                <li>
+                                    <div class="icon"><img src="images/index/icon1.png" alt=""></div>
+                                    <div class="carousel">
+                                        <ul>
+                                            {volist name="jiadian" id="vo"}
+                                            {between name="i" value="3,4"}
+                                            <li>
+                                                <a href="{:url('Cate/details',['id'=>$vo.id])}"><img src="__ROOT__/Uploads/{$vo.img.0}" width="448" height="256" alt=""></a>
+                                            </li>
+                                            {/between}
+                                            {/volist}
+                                        </ul>
+                                    </div>
+                                    <div class="carousel-icon">
+                                        <ul>
+                                            <li class="on"></li>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                {volist name="jiadian" id="vo"}
+                                {between name="i" value="5,19"}
+                                <li>
+                                    <a href="{:url('Cate/details',['id'=>$vo.id])}"><img src="__ROOT__/Uploads/{$vo.img.0}" width="126" height="123" alt=""></a>
+                                    <h2><a href="{:url('Cate/details',['id'=>$vo.id])}">{$vo.name}</a></h2>
+                                    <p>￥{$vo.price}<del>￥{$vo.price+100}</del></p>
+                                </li>
+                                {/between}
+                                {/volist}
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div>
+                    <div class="title">
+                        <h2>手机<img src="images/index/ring.jpg" alt=""></h2>
+                        <div></div>
+                    </div>
+                    <div class="content">
+                        <div class="left">
+                            <div class="big-info">
+                                <h1><a href="{:url('Cate/details',['id'=>$shouji.0.id])}">{$shouji.0.cate_name}</a></h1>
+                                <p>{$shouji.0.name}￥{$shouji.0.price}</p>
+                            </div>
+                            <!-- <ul class="big-list">
+                                <li>铂金戒指</li>
+                                <li>情侣对戒</li>
+                                <li>个人定制</li>
+                                <li>特大钻戒</li>
+                                <li>个人定制</li>
+                                <li>特大钻戒</li>
+                            </ul> -->
+                            <a href="{:url('Cate/details',['id'=>$shouji.0.id])}"><img src="__ROOT__/Uploads/{$shouji.0.img.0}" width="300" height="511" alt=""></a>
+                        </div>
+                        <div class="right">
+                            <ol class="shop-list">
+                                <li>
+                                    <a href="{:url('Cate/details',['id'=>$shouji.1.id])}"><img src="__ROOT__/Uploads/{$shouji.1.img.0}" width="148" height="108" alt=""></a>
+                                    <h2><a href="{:url('Cate/details',['id'=>$shouji.1.id])}">{$shouji.1.name}</a></h2>
+                                    <p>￥{$shouji.1.price} <del>￥{$shouji.1.price+100}</del></p>
+                                </li>
+                                <li>
+                                    <div class="icon"><img src="images/index/icon1.png" alt=""></div>
+                                    <div class="carousel">
+                                        <ul>
+                                            {volist name="shouji" id="vo"}
+                                            {between name="i" value="3,4"}
+                                            <li>
+                                                <a href="{:url('Cate/details',['id'=>$vo.id])}"><img src="__ROOT__/Uploads/{$vo.img.0}" width="448" height="256" alt=""></a>
+                                            </li>
+                                            {/between}
+                                            {/volist}
+                                        </ul>
+                                    </div>
+                                    <div class="carousel-icon">
+                                        <ul>
+                                            <li class="on"></li>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                {volist name="shouji" id="vo"}
+                                {between name="i" value="5,9"}
+                                <li>
+                                    <a href="{:url('Cate/details',['id'=>$vo.id])}"><img src="__ROOT__/Uploads/{$vo.img.0}" width="126" height="123" alt=""></a>
+                                    <h2><a href="{:url('Cate/details',['id'=>$vo.id])}">{$vo.name}</a></h2>
+                                    <p>￥{$vo.price}<del>￥{$vo.price+100}</del></p>
+                                </li>
+                                {/between}
+                                {/volist}
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file="Public/footer"}

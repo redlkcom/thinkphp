@@ -1,0 +1,108 @@
+{include file="Public/header"}
+<div class="site-text site-block">
+<form class="layui-form" action="{:url('add')}" method="post" enctype="multipart/form-data">
+<input type="hidden" name="pid" value="">
+<div class="layui-form-item" id="pid_0">
+        <label class="layui-form-label">父分类</label>
+        <div class="layui-input-block">
+            <select lay-filter="pid" level="0">
+                <option value="0">一级分类</option>
+                {volist name="cate_list" id="vo"}
+                <option value="{$vo.id}">{$vo.name}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+ 
+    <div class="layui-form-item">
+      <label class="layui-form-label">名称</label>
+      <div class="layui-input-inline">
+        <input name="name" id="name" class="layui-input" type="text" required="required">
+      </div>
+  </div>
+    
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-filter="demo1" disabled  lay-submit="" id="btn">立即提交</button>
+      <button class="layui-btn layui-btn-primary" type="reset">重置</button>
+    </div>
+  </div>
+</form>
+ </div>
+
+<script>
+//Demo
+layui.use('form', function(){
+   var form = layui.form;
+   var num=0;
+   form.on('select',function(lisen){
+    var id=lisen.value;
+    var obj=lisen.elem;
+    var level=obj.getAttribute('level');
+    $(':input[name="pid"]').val(id);
+    if (id!=0) {
+      $.ajax({
+        type:"POST",
+        url:"{:url('cateajax')}",
+        data:{'id':id},
+        dataType:'json',
+        success:function(msg){
+           
+          if (msg!='') {
+            num++;
+            level=Number(level)+1;
+            while($('#pid_'+level).length!=0){
+              $('#pid_'+level).remove();
+              level++;
+              num--;
+          }
+          var str ='<div class="layui-form-item" id="pid_'+num+'">';
+                        str +='<label class="layui-form-label">子分类</label>';
+                        str +='<div class="layui-input-block">';
+                        str +='<select  lay-filter="child" level="'+num+'">';
+                        str +='<option value="0">上级分类</option>';
+                        for (var i=0;i<msg.length;i++){
+                        str +='<option value="'+msg[i].id+'">'+msg[i].name+'</option>';
+                        }
+                        str +='</select>';
+                        str +='</div>';
+                        str +='</div>';
+                        num--;
+
+          $('#pid_'+num).after(str);
+                     form.render();
+                     num++;
+        }
+        }
+      });
+    }
+   });
+});
+
+
+$(function () {
+  $('#name').blur(function(){
+    var val=$('this').val();
+    var reg=/^[A-Za-z0-9\u4e00-\u9fa5]{2,12}$/;
+    if(!reg.test(val)){
+      $('#btn').attr('disabled',true);
+      layer.msg('请输入2-12中文！');
+    }else{
+        $.ajax({
+            type:"POST",
+            url :"{:url('ajax')}",
+            data:{"name=":val},
+            success:function(msg){
+                if(msg==1){
+                    $('#btn').attr('disabled',true);
+                    layer.msg('名称已存在，请重新输入！');
+                }else{
+                    $('#btn').attr('disabled',false);
+                }
+            }
+        });
+    }
+  })    
+})
+</script>
+{include file="Public/footer"}

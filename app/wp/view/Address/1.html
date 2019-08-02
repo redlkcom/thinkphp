@@ -1,0 +1,140 @@
+{include file="Public/header"}
+    <link rel="stylesheet" type="text/css" href="css/shop_cart.css">
+    <link rel="stylesheet" type="text/css" href="css/address.css">
+
+    <script src="js/address.js"></script>
+<input type="hidden" id="url" value="{:url('ajax')}">
+    <div class="middle">
+        <div class="container">
+            <div class="head">
+                <div class="title fl">
+                    地址页
+                </div>
+                <div class="head-bar fr">
+                    <ul>
+                        <li class="on first">
+                            <div class="box">
+                                <div class="bar"></div>
+                                <div class="radio"><span>1</span></div>
+                            </div>
+                            <p>我的购物车</p>
+                        </li>
+                        <li class="on ">
+                            <div class="box">
+                                <div class="bar"></div>
+                                <div class="radio"><span>2</span></div>
+                            </div>
+                            <p>确认订单</p>
+                        </li>
+                        <li class="on active">
+                            <div class="box">
+                                <div class="bar"></div>
+                                <div class="radio"><span>3</span></div>
+                            </div>
+                            <p>确认地址</p>
+                        </li>
+                        <li class="last">
+                            <div class="box">
+                                <div class="bar"></div>
+                                <div class="radio"><span>4</span></div>
+                            </div>
+                            <p>提交订单</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <form method="post" action="{:url('Address/add')}" id="address_add">
+            <div class="content">
+                <h1>已有地址</h1>
+                <ul class="clear" id="addressList">
+                    {volist name="res" id="vo"}
+                    <li>
+                        <p>姓名：{$vo.a_name}</p>
+                        <p>电话：{$vo.tel}</p>
+                        <p>地址：{$vo.p_name}{$vo.c_name}{$vo.d_name}{$vo.road}</p>
+                        <div>
+                            <a class="{if condition="($vo.curruct==1)"}choose{/if} choseBtn" key={$vo.id}>选择</a><a class="del" key={$vo.id}>删除</a>
+                        </div>
+                    </li>
+                    {/volist}
+                </ul>
+                
+                <h1>新增地址</h1>
+                <label for=""><b>*</b>姓名：</label>
+                <input id="name" name="a_name" type="text" placeholder="姓名" required><b>姓名不能为空</b><br>
+                <label for=""><b>*</b>电话：</label>
+                <input id="phone" type="tel" name="tel" placeholder="电话" required><b>电话不能为空</b><br>
+                <label for=""><b>*</b>所在地区：</label>
+                <select name="province" id="province">
+                    <option>请选择所在省</option>
+                    {volist name="province" id="vo"}
+                    <option value="{$vo.provinceid}" >{$vo.province}</option>
+                    {/volist}
+                </select><b>省市不能为空</b>
+
+                <select name="city" id="city">
+                    <option>请选择所在市</option>
+                </select><b>市不能为空</b>
+
+                <select name="area" id="area">
+                    <option value="">请选择所在区</option>
+                </select><b>区不能为空</b><br>
+
+                <label for="detailAddress">
+                    <b>*</b>详细地址：</label>
+                    <input id="detailAddress" type="text" placeholder="详细地址" name="road" required><b>详细地址不能为空</b>
+                <div class="defaultAddress">
+                    <label >
+                        <input id="defaultAddress" type="checkbox" value="">
+                        <span>设为默认地址</span>
+                    </label>
+                </div>
+                
+                <input type="submit" class="btn" id="saveAddress" value="保存收货地址">
+                <div class="submit">
+                    <a id="confirmBtn" href="{:url('Order/add')}">确认地址</a>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(function(){
+        $('#province').change(function(){
+            $('#city').empty();
+            var pro_val=$('#province').val();
+            $.ajax({
+            type:"POST",
+            url:"{:url('pro_ajax')}",
+            data:"pro_code="+pro_val,
+            dataType:'json',
+            success:function(msg){
+                var l='<option value="">请选择所在市</option>';
+                for (var i=0;i<msg.length;i++) {
+                    l+='<option value="'+msg[i].cityid+'">'+msg[i].city+'</option>';
+                }
+                $('#city').append(l);
+            }
+           });
+        })
+        $('#city').change(function(){
+            $('#area').empty();
+            var city_val=$('#city').val();
+            $.ajax({
+            type:"POST",
+            url:"{:url('city_ajax')}",
+            data:"city_code="+city_val,
+            dataType:'json',
+            success:function(msg){
+                var l='<option value="">请选择所在区</option>';
+                for (var i=0;i<msg.length;i++) {
+                    l+='<option value="'+msg[i].areaid+'">'+msg[i].area+'</option>';
+                }
+                $('#area').append(l);
+            }
+           });
+        })
+
+    })
+    </script>
+ {include file="Public/footer"}

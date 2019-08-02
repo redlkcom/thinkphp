@@ -1,0 +1,126 @@
+{include file="Public/header"}
+    <link rel="stylesheet" type="text/css" href="css/member.css">
+    <link rel="stylesheet" type="text/css" href="css/sub_nav.css">
+    <link rel="stylesheet" type="text/css" href="css/order.css">
+
+    <script src="js/order.js"></script>
+ 
+    <div class="middle">
+        <div class="container clear">
+            <div class="sub-nav fl">
+                <dl>
+                    <dt><a >订单中心</a></dt>
+                    <dd class="on"><a href="order.html">我的订单</a></dd>
+                    <dd><a href="#">团购订单</a></dd>
+                    <dd><a href="#">我的预售</a></dd>
+                    <dd><a href="#">评价晒单</a></dd>
+                    <dd><a href="#">取消订单记录</a></dd>
+                </dl>
+            </div>
+            <div class="content fl">
+                <h1>我的订单</h1>
+                <div class="box">
+                    <div class="search">
+                        <input type="text" name="" value="" placeholder="请输入商品名称丶订单号"><button type="">搜索</button>
+                    </div>
+                    <div class="top-nav">
+                        <span class="on" >全部订单</span>
+                        <span >待付款</span>
+                        <span >待收货</span>
+                        <span >待评价<i>1</i></span>
+                        <span >订单回收站</span>
+                    </div>
+                    <div class="tab">
+                        <div class="thead">
+                            <h2 class="fl">今年订单<img src="images/common/down_icon.png" alt=""></h2>
+                            <span>订单详情</span>
+                            <span>收货人</span>
+                            <span>总计</span>
+                            <span>全部状态<img src="images/common/down_icon.png" alt=""></span>
+                            <span>操作</span>
+                        </div>
+                        <div class="tbody">
+                            {volist name="order" id="vo"}
+                            <div class="item clear">
+                                <p>{$vo.time|date='Y-m-d H:i:s',###}<span></span>订单号：{$vo.order_num}</p>
+                                <div class="clear fl">
+                                    {volist name="vo.goods_info" id="vv"}
+                                     <div class="info fl">
+                                        <a href="{:url('home/Cate/details',['id'=>$vv.id])}"><img class="fl" src="__ROOT__/Uploads/{$vv.img}" alt=""></a>
+                                        <p class="fl"><a href="{:url('home/Cate/details',['id'=>$vv.id])}">{$vv.name}</a></p>
+                                        <span class="num fl">x{$vv.num}</span>
+                                        <p>{switch name="vo.status"}
+                                            {case value="1"}未支付{/case}
+                                            {case value="2"}待发货{/case}
+                                            {case value="3"}待收货{/case}
+                                            {case value="4"}待评价{/case}
+                                            {case value="5"}交易完成{/case}
+                                            {default /}default
+                                        {/switch}</p>
+                                    </div>
+                                    {/volist}
+                                </div>
+                                <div>
+                                    <div class="table">
+                                        {$find.a_name}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="table">
+                                        ￥{$vo.sumtotal}<br>
+                                        {$vo.num}
+                                    </div>
+                                </div>
+                                <div class="sm-font">
+                                    <div class="table">
+                                        <p class="state">
+                                        {switch name="vo.status"}
+                                            {case value="1"}未支付{/case}
+                                            {case value="2"}待发货{/case}
+                                            {case value="3"}待收货{/case}
+                                            {case value="4"}待评价{/case}
+                                            {case value="5"}交易完成{/case}
+                                            {default /}default
+                                        {/switch}
+                                        </p>
+                                        <a href="#">订单详情</a>
+                                    </div>
+                                </div>
+                                <div class="sm-font">
+                                    <div class="table">
+                                        <p>{switch name="vo.status"}
+                                            {case value="1"}<font style="color: #ffb800"><a href="{:url('home/Cate/details',['id'=>$vv.id])}">立即购买</a></font>{/case}
+                                            {case value="2"}<font style="color: #ff5722">待发货</font>{/case}
+                                            {case value="3"}代收货{/case}
+                                            {case value="4"}<a href="#">评价晒单</a>{/case}
+                                            {case value="5"}交易完成{/case}
+                                        {/switch}</p>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            {/volist}
+                        </div>
+                        <div class="bottom-nav">
+                            <a href="#">上一页</a>
+                            <span><b>1</b>/10</span>
+                            <a href="#" class="on">下一页</a>
+                        </div>
+                    </div>
+                    <div class="tab">
+
+                    </div>
+                    <div class="tab">
+                        
+                    </div>
+                    <div class="tab">
+                        
+                    </div>
+                    <div class="tab">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file="Public/footer"}

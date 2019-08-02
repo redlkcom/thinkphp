@@ -1,0 +1,193 @@
+{include file="Public/header"}
+    <link rel="stylesheet" type="text/css" href="css/guessYouLike.css">
+    <link rel="stylesheet" type="text/css" href="css/shop_cart.css">
+    <link rel="stylesheet" type="text/css" href="css/table.css">
+
+    <script src="js/num.js"></script>    
+    <script src="js/loadShopData.js"></script>    
+    <script src="js/shopCar.js"></script>
+    <script src="js/guess.js"></script>
+
+    <div class="middle">
+        <input type="hidden" id="url" value="{:url('Cart/ajax')}">
+        <input type="hidden" id="edit" value="{:url('Cart/edit')}">
+        <div class="container">
+            <div class="head">
+                <div class="title fl">
+                    购物车页
+                </div>
+                <div class="head-bar fr">
+                    <ul>
+                        <li class="on active first">
+                            <div class="box">
+                                <div class="bar"></div>
+                                <div class="radio"><span>1</span></div>
+                            </div>
+                            <p>我的购物车</p>
+                        </li>
+                        <li>
+                            <div class="box">
+                                <div class="bar"></div>
+                                <div class="radio"><span>2</span></div>
+                            </div>
+                            <p>确认订单</p>
+                        </li>
+                        <li>
+                            <div class="box">
+                                <div class="bar"></div>
+                                <div class="radio"><span>3</span></div>
+                            </div>
+                            <p>确认地址</p>
+                        </li>
+                        <li class="last">
+                            <div class="box">
+                                <div class="bar"></div>
+                                <div class="radio"><span>4</span></div>
+                            </div>
+                            <p>提交订单</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <label class="allSelect">
+                                    <input type="checkbox" value="">
+                                    <span>全选</span>
+                                </label>
+                                商品
+                            </th>
+                            <th>价格（元）</th>
+                            <th>数量</th>
+                            <th>小计（元）</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {volist name="cart_list" id="vo"}
+                        <tr>
+                            <td class="goods">
+                                <label class="fl">
+                                    <input type="checkbox" value="{$vo.id}">
+                                    <span></span>
+                                </label>
+                                <a href="{:url('Cate/details',['id'=>$vo.id])}" class="fl">
+                                    <img src="__ROOT__/Uploads/{$vo.img}" width="120" height="100">
+                                </a>
+                                    <h3>
+                                        <a class="proName" href="{:url('Cate/details',['id'=>$vo.id])}">{$vo.name}</a>
+                                    </h3>
+                                        <dl>
+                                            <dd>40cm</dd>
+                                            <dd>白色</dd>
+                                        </dl>
+                                    </td>
+                                    <td class="price">￥{$vo.price}</td>
+                                    <td>
+                                        <div class="num">
+                                            <button class="numSub" type="button" key="{$vo.id}">-</button>
+                                            <input class="numValue" type="text" name="" value="{$vo.num}">
+                                            <button class="numAdd" type="button" key="{$vo.id}">+</button>
+                                            <p>库存{$vo.count}件</p>
+                                        </div>
+                                    </td>
+                                    <td class="subtotal">￥{$vo.total}</td>
+                                    <td class="operation">
+                                        <a href="{:url('Cart/delete',['id'=>$vo.id])}" class="delete">删除</a>
+                                        <br>
+                                        <a class="collection" key="{$vo.id}">收藏</a>
+                                    </td>
+                                </tr>
+                        {/volist}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2">
+                                <label class="allSelect">
+                                    <input type="checkbox"  value="">
+                                    <span>全选</span>
+                                </label>
+                                <a class="groupDel">批量删除</a>
+                                <a href="{:url('Index/index')}">返回继续购物</a>
+                            </th>
+                            <th colspan="3">
+                                <span>共计 <em class="totalCount">0</em> 件商品</span>
+                                <span>总价：<em class="totalPrice">￥0</em></span>
+                                <button class="btn" id="settleAccounts" type="button"><a href="javascript:void(0)" id="confirm">去结算</a></button>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <form id="confirm_total" action="{:url('Cart/confirm')}" method="post">
+                <input type="hidden" name="num" id="num">
+                <input type="hidden" name="sumtotal" id="sumtotal">
+            </form>
+            <div class="guessYouLike">
+                <h3>猜你喜欢</h3>
+                <div class="division"></div>
+                <ul class="clear">
+                    <li>
+                        <a href="pro_details.html"><img src="images/shop_list/product2.jpg" alt=""></a>
+                        <p><a href="pro_details.html">京东时尚最新品手镯 翡翠绿穿戴舒服手镯</a></p>
+                        <span><i>￥</i>666</span>
+                        <button type="button">加入购物车</button>
+                    </li>
+                    <li>
+                        <a href="pro_details.html"><img src="images/shop_list/product2.jpg" alt=""></a>
+                        <p><a href="pro_details.html">京东时尚最新品手镯 翡翠绿穿戴舒服手镯</a></p>
+                        <span><i>￥</i>666</span>
+                        <button type="button">加入购物车</button>
+                    </li>
+                    <li>
+                        <a href="pro_details.html"><img src="images/shop_list/product2.jpg" alt=""></a>
+                        <p><a href="pro_details.html">京东时尚最新品手镯 翡翠绿穿戴舒服手镯</a></p>
+                        <span><i>￥</i>666</span>
+                        <button type="button">加入购物车</button>
+                    </li>
+                    <li>
+                        <a href="pro_details.html"><img src="images/shop_list/product2.jpg" alt=""></a>
+                        <p><a href="pro_details.html">京东时尚最新品手镯 翡翠绿穿戴舒服手镯</a></p>
+                        <span><i>￥</i>666</span>
+                        <button type="button">加入购物车</button>
+                    </li>
+                    <li>
+                        <a href="pro_details.html"><img src="images/shop_list/product2.jpg" alt=""></a>
+                        <p><a href="pro_details.html">京东时尚最新品手镯 翡翠绿穿戴舒服手镯</a></p>
+                        <span><i>￥</i>666</span>
+                        <button type="button">加入购物车</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(function(){
+        $('.collection').click(function(){
+            var id=$(this).attr('key');
+            $.ajax({
+            type:"POST",
+            url:"{:url('Cart/collection')}",
+            data:"id="+id,
+            success:function(msg){
+                switch(Number(msg)){
+                    case 0:
+                    alert('您还未登录');
+                    break;
+                    case 1:
+                    alert('您已收藏改商品');
+                    break;
+                    case 2:
+                    alert('收藏成功');
+                    break;
+                }
+            }
+           });
+        })
+        
+    })
+    </script>
+    {include file="Public/footer"}

@@ -1,0 +1,164 @@
+{include file="Public/header"}
+<div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">产品管理</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            产品修改
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form role="form" method="post" action="" enctype="multipart/form-data">
+                                        <input type="hidden" name="img" id='img' value="">
+                                        <input type="hidden" name="sl_img" id='sl_img' value="">
+                                        <input type="hidden" name="water_img" id='water_img' value="">
+                                        <input type="hidden" name="id" value="{$find.id}">
+                                        <div class="form-group">
+                                            <label>产品名称</label>
+                                            <input class="form-control" name="name" value="{$find.name}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>产品分类</label>
+                                            <select class="form-control" name="category">
+                                               {volist name="cate" id="vo"} 
+                                                <option value="{$vo.id}" {if condition="($vo.id == $find.category)"}selected{/if}>{$vo.p_name}</option>
+                                                {/volist}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>产品价格</label>
+                                            <input class="form-control" name="price" value="{$find.price}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>产品库存</label>
+                                            <input class="form-control" name="count" value="{$find.count}" required> 
+                                        </div>
+                                        
+                                         <div class="form-group" >
+                                            
+                                           <!--  <input type="file"  id="css" name="file[]"/> -->
+                                            <!-- <label>添加图片</label>
+                                            <input type="file" name="img"> -->
+                                            <button type="button" class="layui-btn" id="test2">多图片上传</button> 
+                                              <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                                                预览图：
+                                                <div class="layui-upload-list" id="demo2"></div>
+                                               <!--  <button type="button" class="layui-btn" id="test1">
+                                                  <i class="layui-icon">&#xe67c;</i>上传图片
+                                                </button> -->
+                                        </div>
+                                        {if condition="($find['img'][0] == '')"}<img src="__ROOT__/upload/mo.jpg" width="130" height="90">
+                                                    {else /} 
+                                                   {volist name="$find['img']" id="vo"}
+                                                    <img src="__ROOT__/upload/{$vo}" width="130" height="90" >
+                                                    {/volist}
+                                                    {/if}
+                                        <div class="form-group">
+                                            <label>产品内容</label>
+                                            <textarea id='des' class="form-control" rows="3" name="content" required>{$find.content}</textarea>
+                                        </div>
+                                        <script src="__STATIC__/admin/ckeditor/ckeditor.js"></script>
+                                       <script>
+                                        CKEDITOR.replace('des');
+                                        CKEDITOR.config.
+                                              filebrowserUploadUrl = 'xxxxxx';
+                                       </script>
+                                       
+                                        <button type="submit" class="btn btn-success btn sweet-prompt">Add</button>
+                                        
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+         
+<script>
+ layui.use('upload', function(){
+  var upload = layui.upload;
+   
+  //执行实例
+//   var uploadInst = upload.render({
+//     elem: '#test1' //绑定元素
+//     ,url: "{:url('ajax')}" //上传接口
+//     ,done: function(res){
+//      $('#img').attr('value',res.info);
+//     }
+//     ,error: function(){
+//       //请求异常回调
+//     }
+//   });
+// });
+
+ upload.render({
+    elem: '#test2'
+    ,url: "{:url('ajax')}"
+    ,multiple: true
+    ,number:10
+    ,before: function(obj){
+      //预读本地文件示例，不支持ie8
+      obj.preview(function(index, file, result){
+        $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" width="130" height="90">')
+      });
+    }
+    ,done: function(res){
+     var img = $('#img').attr('value');
+     img +=img!=''?'|'+res['info'][0]:res['info'][0];
+     $('#img').attr('value',img);
+     var sl_img = $('#sl_img').attr('value');
+     sl_img +=sl_img!=''?'|'+res['info'][1]:res['info'][1];
+     $('#sl_img').attr('value',sl_img);
+     var water_img = $('#water_img').attr('value');
+     water_img +=water_img!=''?'|'+res['info'][2]:res['info'][2];
+     $('#water_img').attr('value',water_img);
+    }
+  });
+});
+     // var i =1;
+     //    $(function(){
+     //        $('#tj').click(function(){
+     //            if(i<10){
+     //         var ic= $('#css').clone();
+     //          ic.attr('id',i);
+     //          $('#clone').append(ic);
+     //          $('#clone').append("<a href='javascript:void[0]' onclick='shan("+i+")' id='nums"+i+"' style='float:right;margin-right:600px;margin-top:-18px;' '>删除</a>")
+              
+     //          i++;
+     //        }else{
+     //            alert('不能再多了');
+     //            return false;
+                
+     //        }
+            
+     //        })
+            
+     //    })
+     //    function shan(num){
+     //        $("#"+num).remove();
+     //        $("#nums"+num).remove();
+     //        i--;
+     //    }
+
+</script>
+{include file="Public/footer"}

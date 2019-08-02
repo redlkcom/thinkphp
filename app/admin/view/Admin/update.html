@@ -1,0 +1,151 @@
+{include file="Public/header"}
+<form class="layui-form" action="" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="id" value="{$find.id}">
+  <div class="layui-form-item">
+      <label class="layui-form-label">用户名</label>
+      <div class="layui-input-inline">
+        <input disabled class="layui-input" value="{$find.username}" type="text" required="required">
+      </div>
+  </div>
+ 
+  <div class="layui-form-item">
+    <label class="layui-form-label">权限</label>
+    <div class="layui-input-inline">
+      <select name="level">
+        <option  value="">请选择</option>
+        {volist name="level" id="vo"}
+        <option value="{$vo.id}" {if condition="($vo.id==$find.level)"} selected{/if}>{$vo.name}</option>
+        {/volist}
+      </select>
+    </div>
+    
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">邮箱</label>
+      <div class="layui-input-inline">
+        <input name="email" value="{$find.email}" id="email" class="layui-input" type="text" required="required">
+      </div>
+    </div>
+    
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">密码</label>
+      <div class="layui-input-inline">
+        <input name="password" value="{$find.password}" id="password" class="layui-input" type="password" required="required">
+      </div>
+    </div>
+    
+  </div>
+    <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">确认密码</label>
+      <div class="layui-input-inline">
+        <input name="pwd" id="cpwd" class="layui-input" type="password" value="{$find.password}" required="required">
+      </div>
+    </div>
+    
+  </div>
+  
+  
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-filter="demo1" lay-submit="" id="btn">立即提交</button>
+      <button class="layui-btn layui-btn-primary" type="reset">重置</button>
+    </div>
+  </div>
+</form>
+ 
+
+<script>
+//Demo
+layui.use('form', function(){
+   var form = layui.form;
+  // //监听提交
+  // form.on('submit(formDemo)', function(data){
+  //   layer.msg(JSON.stringify(data.field));
+  //   return false;
+  // });
+});
+
+    var p=0,e=0,c=0;
+    $(function () {
+    
+      
+      //邮箱验证
+      $('#email').blur(function(){
+          check_email();
+          check_form();
+      })
+      //密码验证
+      $('#password').blur(function(){
+          check_password();
+          check_form();
+      })
+      //重复密码验证
+      $('#cpwd').bind('blur ',function(){
+          check_cpwd();
+          check_form();
+      })
+      
+
+  })
+    
+    //密码验证
+    function check_password(){
+        var password=$('#password').val();
+        var reg=/^\w{5,12}$/;
+        if(!reg.test(password)){
+            p=0;
+            layer.msg('请输入5-12位英文字母或数字下划线的密码');
+        }else {
+            p=1;
+        }
+    }
+    //重复密码验证
+    function check_cpwd(){
+        var password=$('#password').val();
+        var cpwd=$('#cpwd').val();
+
+        if(password!=cpwd){
+            c=0;
+            layer.msg('密码不一致');
+        }else {
+            c=1;
+        }
+    }
+    //邮箱验证
+      function check_email(){
+          var email=$('#email').val();
+          var reg=/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+          if(!reg.test(email)){
+              e=0;
+              layer.msg('请输入正确邮箱格式');
+          }else {
+              $.ajax({
+                  type:"POST",
+                  url :"{:url('ajax')}",
+                  data:"email="+email,
+                  success:function(msg){
+                      if(msg==1){
+                          e=0;
+                          layer.msg('邮箱名已存在，请重新输入！');
+                      }else{
+                          e=1;
+                      }
+                  }
+              });
+          }
+
+      }
+    function check_form(){
+      console.log(u,p,c,e);
+        if(p==1||c==1||e==1){
+           $('#btn').attr('disabled',false);
+        }else {
+            $('#btn').attr('disabled',true);
+        }
+    }
+</script>
+{include file="Public/footer"}

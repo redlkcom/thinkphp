@@ -1,0 +1,37 @@
+{include file="Public/header"}
+<a href="{:url('add')}" class="layui-btn">
+  <i class="layui-icon">&#xe608;</i> 添加
+</a>
+<table class="layui-table">
+  <colgroup>
+    <col width="150">
+    <col width="200">
+    <col>
+  </colgroup>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>名字</th>
+      <th>图片</th>
+      <th>时间</th>
+      <th>操作</th>
+    </tr> 
+  </thead>
+  <tbody>
+    {volist name="list" id="vo"}
+    <tr>
+      <td>{$vo.id}</td>
+      <td>{$vo.name}</td>
+      <td>
+        <img src="__ROOT__/Uploads/{$vo.img}" width="50" height="50">
+      </td>
+      <td>{$vo.time}</td>
+      <td>
+        <a href="javascript:void(0)" class="layui-btn layui-btn-danger del" url="{:url('luo_del',['id'=>$vo.id])}">删除</a>
+        </td>
+    </tr>
+    {/volist}
+  </tbody>
+</table>
+{$list->render()}
+{include file="Public/footer"}

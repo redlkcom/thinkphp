@@ -1,0 +1,46 @@
+{include file="Public/header"}
+<a href="{:url('Product/add')}" class="layui-btn">
+  <i class="layui-icon">&#xe608;</i> 添加
+</a>
+<table class="layui-table">
+  <colgroup>
+    <col width="150">
+    <col width="200">
+    <col>
+  </colgroup>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>名字</th>
+      <th>类别</th>
+      <th>图片</th>
+      <th>时间</th>
+      <th>价格</th>
+      <th>库存</th>
+      <th>操作</th>
+    </tr> 
+  </thead>
+  <tbody>
+    {volist name="list_copy" id="vo"}
+    <tr>
+      <td>{$vo.id}</td>
+      <td>{$vo.name}</td>
+      <td>{$vo.cate_name}</td>
+      <td>
+        {if condition="($vo['thumb'][0]=='')"}
+        <img src="__ROOT__/Uploads/timg.jpg" width="50" height="50">
+        {else /}<img src="__ROOT__/Uploads/{$vo.thumb.0}" width="50" height="50">
+        {/if}
+      </td>
+      <td>{$vo.time}</td>
+      <td>{$vo.price}</td>
+      <td>{$vo.count}</td>
+      <td><a href="{:url('Product/update',['id'=>$vo.id])}" class="layui-btn">修改</a>
+        <a href="javascript:void(0)" class="layui-btn layui-btn-danger del" url="{:url('Product/luo_del',['id'=>$vo.id])}">删除</a>
+        </td>
+    </tr>
+    {/volist}
+  </tbody>
+</table>
+{$list->render()}
+{include file="Public/footer"}
